@@ -14,7 +14,7 @@ import usercomms.joemarini.example.com.usercommunications.Dialogs.SingleChoiceDi
 import usercomms.joemarini.example.com.usercommunications.Dialogs.SimpleDialogFragment;
 
 public class DialogActivity extends AppCompatActivity
-    implements View.OnClickListener {
+    implements View.OnClickListener, SimpleDialogFragment.SimpleDialogListener {
 
     private final String TAG = "AUC_DLG_ACTIVITY";
     @Override
