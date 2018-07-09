@@ -10,8 +10,14 @@ import android.util.Log;
 
 public class SimpleDialogFragment extends DialogFragment {
     private final String TAG = "AUC_SIMPLE";
-
+    
+    private SimpleDialogListener mHost;
     // TODO: Implement an interface for hosts to get callbacks
+    public interface SimpleDialogListener{
+    public void onPositiveResult(DialogFragment dlg);
+    public void onNegativeResult(DialogFragment dlg);
+    public void onNeutralResult(DialogFragment dlg);
+    }
 
 
     @Override
@@ -28,14 +34,15 @@ public class SimpleDialogFragment extends DialogFragment {
         @Override
             public void onClick(DialogInterface dialog, int which){
             Log.i(TAG, "Positive button clicked");
-            }
-        
+                mHost.onPositiveResult(SimpleDialogFragment.this);
+            }        
         });
             
         builder.setNegativeButton("No Way!", new DialogInterface.OnClickListener() {
         @Override
             public void onClick(DialogInterface dialog, int which){
             Log.i(TAG, "Negative button clicked");
+                mHost.onNegativeResult(SimpleDialogFragment.this);
             }
         
         });
@@ -44,6 +51,7 @@ public class SimpleDialogFragment extends DialogFragment {
         @Override
             public void onClick(DialogInterface dialog, int which){
             Log.i(TAG, "Neutral button clicked");
+                mHost.onNeutralResult(SimpleDialogFragment.this);
             }
         
         });
@@ -59,5 +67,10 @@ public class SimpleDialogFragment extends DialogFragment {
         Log.i(TAG, "Dialog cancelled")
     }
     // TODO: Override onAttach to get Activity instance
+    @Override
+    public void onAttached (Activity activity){
+    super.onAttach(activity);
+    mHost = (SimpleDialogListener)activity;
+    }
 
 }
